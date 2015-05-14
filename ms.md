@@ -107,7 +107,8 @@ recommendations about where code revision is needed.
 While software developers will run test suite and coverage analyses on their
 machines, it is important to (i) report the results to the users and (ii) ensure
 that the software works on "clean" machines. This can be done, in a single step,
-using cloud-based services known as Continuous Integration (CI) engines. Continuous integration [@duva07] is the practice of committing every change to a
+using cloud-based services known as Continuous Integration (CI) engines.
+Continuous integration [@duva07] is the practice of committing every change to a
 source code to a service that will test whether or not the software still works.
 
 This is usually done by coupling a continuous integration (CI) engine (such as,
@@ -122,29 +123,36 @@ code) is "passing". If not, the build will be "failing".
 Using CI engines serves two purposes. First, it prooves that the software runs
 on other machines and configurations (most CI engines allow to run, *e.g.*,
 different versions of `R`), and (most importantly) that the dependencies are
-known and can be installed without effort. Second, it serves as a *hub* for
-other services. Most cloud-based solutions are well integrated to one another:
-sending a new version of the code to *GitHub* will trigger a build on
-*TravisCI*, which will perform the coverage analysis for *Coveralls* to report,
-and both will then send the results back to *GitHub* for the users to see. Not
-only does it publicly discloses two obvious measures of code quality, it does so
-in a way that is effortless for the developer.
+known and can be installed without effort. Second, it serves as a hub for other
+services. Most cloud-based solutions are well integrated to one another: sending
+a new version of the code to *GitHub* will trigger a build on *TravisCI*, which
+will perform the coverage analysis for *Coveralls* to report, and both will then
+send the results back to *GitHub* for the users to see. Not only does it
+publicly discloses two obvious measures of code quality, it does so in a way
+that is effortless for the developer.
 
 ## Release code in a citeable way
 
 As mentioned in the introduction, while software papers include links to the
-code, the code itself is not tracked, and is difficultly citeable. This should
-not be the case. *Zenodo* (`zenodo.org`) recently partnered with *GitHub*, to
-offer researchers the opportunity to get DOI (Digital Object Identifiers) for
-their code. Every time a new *release* of the code is created, it receives a new
-DOI, and can be cited as any other scientific document. This is a necessary step
-if we want to fully understand the impact of code on the scientific literature.
+code, the code itself is not tracked, and is difficultly citeable. This has the
+major disadvantage of not giving credit to software developers for their code
+(as opposed to for their papers describing the code). In addition, although
+papers are usually published once, software undergo many interations
+("releases"), and each of them should be cited as a separate entity. Citing code
+releases could be a leap forward for reproducibility. If a specific version of
+the code is used and cited, it becomes possible to reproduce the analysis in
+similar conditions (this assumes that the version number of dependencies is
+given too). Should a version, or range of versions, or a software be affected by
+a bug, this also provides a way to rapidly identify which papers can have been
+affected.
 
-More importantly, this is a major leap forward for reproducibility. If a
-specific version of the code is used, and can be cited, it becomes possible to
-reproduce the analysis in the exact same conditions --- this is particularly
-true since *Zenodo* (hosted by the CERN Data Centre) offers independent and
-redundant copies of every published version.
+*Zenodo* (`zenodo.org`) recently partnered with *GitHub*, to offer researchers
+the opportunity to get DOI (Digital Object Identifiers) for their code. Every
+time a new *release* of the code is created, it receives a new DOI, and can be
+cited as any other scientific document. This is a necessary step if we want to
+fully understand the impact of code on the scientific literature. *Zenodo*
+(hosted by the CERN Data Centre) offers independent and redundant copies of
+every published version, so one can decide which release to download and cite.
 
 ## Write documentation, publish use-cases
 
