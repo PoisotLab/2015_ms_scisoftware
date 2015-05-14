@@ -1,0 +1,101 @@
+<h1 id="introduction">Introduction</h1>
+<p>The practice of science is becoming increasingly reliant on software --- despite the lack of formal training <span class="citation">(Wilson et al. 2014)</span>, upwards of 30% of scientists need to <em>develop</em> their own. In ecology and evolution, this resulted in several journals (notably <em>Methods in Ecology &amp; Evolution</em>, <em>Ecography</em>, <em>BMC Ecology</em>) creating specific sections for papers describing software package. This can only be viewed as a good thing, since the call to publish software in an open way has been made several times <span class="citation">(Barnes 2010)</span>, and is broadly viewed as a way towards greater reproducibility <span class="citation">(Ince et al. 2012)</span>. In addition, by providing a peer-reviewed, journal approved venue, this change in editorial practices gives credit to scientists for whom software development is a frequent research output.</p>
+<p>Nevertheless, these papers are at best only pointers to the code, which is not tracked in a bibliometrically measurable way. Some initiatives, such as <code>impactstory.org</code>'s metrics for code re-use, are a good start, but for code to be valued as a first-class research output, wider adoption of existing technologies are needed.</p>
+<p>Most concerning is the fact that, despite the recognized need for quality control <span class="citation">(Baxter et al. 2006)</span>, we do not currently have a set of community-wide best practices for how code should be released. While it is clear that code is perceived as a research output just like data and papers, understanding <em>how</em> it should be released, vetted, and tracked is still the great unknown. In a survey, <span class="citation">Joppa et al. (2013)</span> reported &quot;troubling trends&quot; in the use of software: only 30% of ecologists using species distribution modeling software justified they use by comparison with other tools, or previously published methods. My impression as a reviewer, and reader of the literature, is that software use tends to follow a trends, whereby if a package is picked up by a few authors, it will rapidly gain traction regardless of its actual <em>quality</em>.</p>
+<p>One of the recommendations by <span class="citation">Joppa et al. (2013)</span> is that code should be reviewed. Yet as almost anyone that wrote or attempted to review scientific software will attest, this implies a tremendous effort. First, not all software are written in the same language. This simple fact make looking for reviewers with the expertise to handle a paper incredibly difficult. In an already over-burdened peer-review system, restricting the search for referees to only people with the technical know-how to perform code review is sure to make the delays increase. Second, there are evidences that, even for the most trivial pieces of software, experienced code-reviewers are not able to follow all possible paths of program flow <span class="citation">(Uwano et al. 2006)</span>; and it can easily be argued that very few ecologists are <em>experienced</em> code reviewers --- nor should they be.</p>
+<p>In order to make scientific software better, which is to say, to increase the confidence of users, and make the act of producing it recognized in the same way that writing papers is, these two challenges must be addressed. The good thing is that solution are <em>already</em> in place, and all that is needed is to increase their adoption by a broader share of the community.</p>
+<h1 id="proposed-best-practices">Proposed best practices</h1>
+<p>In the following sections, I will outline how a few steps can be used to make software safer, easier to re-use, and discoverable. These are not meant to be the end-all solution to software related issues, but rather to stimulate a discussion between software producers, software users, and journal editors.</p>
+<h2 id="use-continuous-integration">Use continuous integration</h2>
+<p>Continuous integration <span class="citation">(Duvall et al. 2007)</span> is the practice of committing every change to a source code to a service that will test whether or not the software still works. This is usually done by coupling a continuous integration (CI) engine (such as, <em>e.g.</em>, <code>travis-ci.org</code>) to a version control system such as <code>git</code> or SVN <span class="citation">(Ram 2013)</span>. When a new change is &quot;pushed&quot;, the CI engine will run a user-specified series of steps, and if none on them fail, will report that the build (the latest version of the code) is &quot;passing&quot;. If not, the build will be &quot;failing&quot;.</p>
+<p>This serves as a first obvious step to evaluate the robustness of a code. Requesting that code submitted for publication, as part of a software paper or otherwise, have a &quot;passing&quot; status would make sense. Note also that most CI engines allow to test the software on several platforms, or versions of <em>e.g.</em>, <code>R</code>, <code>python</code>, etc, and therefore can be used to ensure that the code will be available to users with various configurations.</p>
+<h2 id="use-automated-testing-and-report-the-results">Use automated testing, and report the results</h2>
+<p>One of the most interesting uses of CI engines is to use them conjointly with a robust <em>test suite</em>. A test suite is a series of situations that test how the code responds to known inputs. For example, if one were to write a function to measure the mean of a series of number, a good test suite would ensure that the mean of <span class="math">3.0</span> and <span class="math">4.0</span> is <span class="math">3.5</span>. An excellent test suite would ensure that the mean of <span class="math">3.0</span> and the character <code>&quot;a&quot;</code> is not defined, and sends a message to the user explaining what went wrong. Designing good test suites is somewhat of an art form, but <span class="citation">Hunt and Thomas (1999)</span> have a good description of how it can be done.</p>
+<p>Most CI engines offer the possibility to run the tests, and subsequently report how much of the code has been tested. For example, <code>coveralls.io</code> has a good interface to see which files, functions, lines are not covered, and whether the coverage changed over time. <span class="citation">Yong Woo (2003)</span> gives good evidence that code coverage analysis improves software quality.</p>
+<p>From a publishing and reviewing point of view, coverage analysis is an incredibly powerful tool. While reviewing the entirety of a source code is difficult and not foolproof, it is much easier to look up what fraction of the code is covered (services like <code>coveralls.io</code> go as far as color-coding the page when the code is not properly covered), then to evaluate whether the test suite is exhaustive enough. Focusing the reviewing effort on the test suite also has the advantage of not requiring the reviewer to be familiar with the language the code is written in, since test packages usually use a simple syntax. For example, <code>python</code>'s <code>assertEqual(mean(2, 3), 2.5)</code>, <code>julia</code>'s <code>@test mean(2, 3) 2.5</code>, and <code>R</code>'s <code>expect_equal(mean(2, 3), 2.5)</code> are all easy to understand, even if the details of how <code>mean</code> is implemented are not.</p>
+<h2 id="release-code-in-a-citeable-way">Release code in a citeable way</h2>
+<p>As mentioned in the introduction, while software papers include links to the code, the code itself is not tracked, and is difficultly citeable. This should not be the case. The <code>zenodo.org</code> service recently partnered with <em>GitHub</em>, to offer researchers the opportunity to get DOI (Digital Object Identifiers) for their code. Every time a new <em>release</em> of the code is created, it receives a new DOI, and can be cited as any other scientific document. This is a necessary step if we want to fully understand the impact of code on the scientific literature.</p>
+<p>More importantly, this is a major leap forward for reproducibility. If a specific version of the code is used, and can be cited, it becomes possible to reproduce the analysis in the exact same conditions --- this is particularly true since <em>Zenodo</em> (hosted on the CERN Data Centre) offers independent and redundant copies of every published version.</p>
+<h2 id="write-documentation-publish-use-cases">Write documentation, publish use-cases</h2>
+<p>Looking at recently published software papers in any journal, it is clear that there is no consensus on how these should be written; which is not necessarily a bad thing, but suggests that the community is trying to find its marks in this new practice. To some extent, software papers are a form of documentation. Yet, using them to document <em>how the program works</em>, as opposed to <em>what the program does</em>, feels like a missed opportunity. Most modern languages offer the possibility to extract formatted &quot;docstrings&quot; to compile a manual from the code itself. The <code>readthedocs.org</code> service does it automatically for <code>python</code>, and there are solution for <code>R</code> (<code>roxygenize</code>), <code>julia</code> (<code>Docile.jl</code>), and others languages. Since the &quot;technical manual&quot; can be extracted directly from the code, software papers are the place to showcase what the software can do. For example, the description of the <code>taxize</code> package for <code>R</code> <span class="citation">(Chamberlain and Sz<span>ö</span>cs 2013)</span>, rather than giving a run down of the different functions, emphasizes how the package can be used for actual research questions, and links to the more extensive documentation.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The use of most of the tools mentioned (a summary of which is given in Table 1) can easily be made public. The <code>shields.io</code> service, for example, provides templates that can be copied/pasted into any web page, giving an up-to-date status information of CI builds, code coverage, link to the documentation, and DOI of the current release. With most journals moving to online-only, it would not be unreasonable to suggest that these, or similar, badges, be presented on the online version of the paper. This would give <em>readers</em> the insurance that the software they are going to read about has been tested, and is most likely to be robust than software about which nothing is known. While this can currently be done on the webpage of the project (see Figure 1), moving this information on the paper itself would send a strong signal that using these tools is actively encouraged.</p>
+<p>If anything, the importance of code and software in day-to-day scientific practice will only increase, and this is a good thing. It is only important to remember that software is written by people, and people make mistake. Taking simple precautions to make sure that the software works will undoubtedly accelerate the review process, and increase the overall quality of code. In parallel, adding unique identifiers on code, and focusing in describing what it does rather than how it does it, will make it easier to find, easier to cite, and easier to adopt.</p>
+<p>Acknowledgments --- this paper was prepared when putting together notes for a workshop on code discoverability, for the Canadian Society of Ecology and Evolution annual meeting 2015, in Saskatoon, and largely inspired by group discussions in the Stouffer lab, University of Canterbury. TP is funded by a starting grant from the Université de Montréal.</p>
+<p></p>
+<p>Table 1: Summary of the different tools, along with URL and a short description of their purpose. All of them can be used at no cost for open source projects, and many also provide educational discount for which scientists are eligible.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Service</th>
+<th align="left">URL</th>
+<th align="left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>GitHub</em></td>
+<td align="left"><code>github.com</code></td>
+<td align="left">Version control</td>
+</tr>
+<tr class="even">
+<td align="left"><em>TravisCI</em></td>
+<td align="left"><code>travis-ci.org</code></td>
+<td align="left">Continuous integration (Linux)</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>Appveyor</em></td>
+<td align="left"><code>appveyor.com</code></td>
+<td align="left">Continuous integration (Windows)</td>
+</tr>
+<tr class="even">
+<td align="left"><em>Jenkins</em></td>
+<td align="left"><code>jenkins-ci.org</code></td>
+<td align="left">Continuous integration (multi OS)</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>Coveralls</em></td>
+<td align="left"><code>coveralls.io</code></td>
+<td align="left">Code coverage analysis</td>
+</tr>
+<tr class="even">
+<td align="left"><em>Zenodo</em></td>
+<td align="left"><code>zenodo.org</code></td>
+<td align="left">DOI provider (<em>GitHub</em> integration)</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>Shields</em></td>
+<td align="left"><code>shields.io</code></td>
+<td align="left">Badges to inform on code status</td>
+</tr>
+<tr class="even">
+<td align="left"><em>ImpactStory</em></td>
+<td align="left"><code>impactstory.org</code></td>
+<td align="left">Information on code impact</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>ReadTheDocs</em></td>
+<td align="left"><code>readthedocs.org</code></td>
+<td align="left">Easy generation of documentation web pages</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div class="figure">
+<img src="ex.png" alt="Example of a GitHub hosted repository, with indication of the build status, current fraction of code covered by tests, and a link to the DOI provided by Zenodo. This informations helps users (and reviewers) evaluate how robustly the code has been tested, and whether it can easily be cited." /><p class="caption">Example of a <em>GitHub</em> hosted repository, with indication of the build status, current fraction of code covered by tests, and a link to the DOI provided by <em>Zenodo</em>. This informations helps users (and reviewers) evaluate how robustly the code has been tested, and whether it can easily be cited.</p>
+</div>
+<p></p>
+<div class="references">
+<h1>References</h1>
+<p>Barnes N. Publish your computer code: it is good enough. Nature. 2010 Oct;467(7317):753. </p>
+<p>Baxter SM, Day SW, Fetrow JS, Reisinger SJ. Scientific Software Development Is Not an Oxymoron. PLoS Comput Biol [Internet]. Public Library of Science (PLoS); 2006;2(9):e87. Available from: <a href="http://dx.doi.org/10.1371/journal.pcbi.0020087">http://dx.doi.org/10.1371/journal.pcbi.0020087</a></p>
+<p>Chamberlain SA, Sz<span>ö</span>cs E. taxize: taxonomic search and retrieval in R. F1000Research. 2013 Oct; </p>
+<p>Duvall PM, Matyas S, Glover A. Continuous integration: improving software quality and reducing risk. InPearson Education; 2007. </p>
+<p>Hunt A, Thomas D. The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley Professional; 1999. </p>
+<p>Ince DC, Hatton L, Graham-Cumming J. The case for open computer programs. Nature. 2012 Feb;482(7386):485–8. </p>
+<p>Joppa LN, <span>McInerny</span> G, Harper R, Salido L, Takeda K, O’Hara K, et al. Troubling Trends in Scientific Software Use. Science. 2013 May;340(6134):814–5. </p>
+<p>Ram K. Git can facilitate greater reproducibility and increased transparency in science. Source Code Biol Med. 2013 Feb;8(1):7. </p>
+<p>Uwano H, Nakamura M, Monden A, Matsumoto K-i. Analyzing Individual Performance of Source Code Review Using Reviewers’ Eye Movement. In Proceedings of 2006 symposium on Eye tracking research &amp; applications. 2006. </p>
+<p>Wilson G, Aruliah DA, Brown CT, Chue Hong NP, Davis M, Guy RT, et al. Best Practices for Scientific Computing. PLoS Biol. 2014 Jan;12(1):e1001745. </p>
+<p>Yong Woo K. Efficient Use of Code Coverage in Large-Scale Software Development. In Proceedings of the 2003 conference of the Centre for Advanced Studies on Collaborative research. 2003. </p>
+</div>
