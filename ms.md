@@ -1,5 +1,5 @@
 ---
-title: A minimal set of best practices for scientific software
+title: Best publishing practices to improve user confidence in scientific software
 author: Timothée Poisot
 date: Mar. 2015
 ---
@@ -59,58 +59,82 @@ In the following sections, I will outline how a few steps can be used to make
 software safer, easier to re-use, and discoverable. These are not meant to be
 the end-all solution to software related issues, but rather to stimulate a
 discussion between software producers, software users, and journal editors.
+These steps are in addition to already well established best practices: the use
+of free and open-source license @morin12 (so that the raw source code can be
+used and improved upon by all users), and the use of publicly available
+repositories (so that the history of changes can easily be consulted).
 
-## Use continuous integration
+## Use automated testing
 
-Continuous integration [@duva07] is the practice of committing every change to a
-source code to a service that will test whether or not the software still works.
-This is usually done by coupling a continuous integration (CI) engine (such as,
-*e.g.*, `travis-ci.org`) to a version control system such as `git` or SVN
-[@ram13]. When a new change is "pushed", the CI engine will run a user-specified
-series of steps, and if none on them fail, will report that the build (the
-latest version of the code) is "passing". If not, the build will be "failing".
+A test suite is a series of situations that test how the code responds to known
+inputs. For example, if one were to write a function to measure the mean of a
+series of number, a good test suite would ensure that the mean of $3.0$ and
+$4.0$ is $3.5$ (subtelties of floating-point arithmetic nonwithstanding). An
+excellent test suite would ensure that the mean of $3.0$ and the character `"a"`
+is not defined, and send a message to the user explaining what went wrong, and
+how it can be fixed. Designing good test suites is somewhat of an art form, but
+@hunt99 have a good description of how it can be done.
 
-This serves as a first obvious step to evaluate the robustness of a code.
-Requesting that code submitted for publication, as part of a software paper or
-otherwise, have a "passing" status would make sense. Note also that most CI
-engines allow to test the software on several platforms, or versions of *e.g.*,
-`R`, `python`, etc, and therefore can be used to ensure that the code will be
-available to users with various configurations.
+Writing explicit (and well documented) test suites and releasing them alongside
+the code has the potential to significantly reduce the reviewing effort. While
+reading through code requires the reviewer to be familiar (and even proficient)
+with a language, test packages usually involve a self-explanatory syntax. For
+example, `python`'s `assertEqual(mean(2, 3), 2.5)`, `julia`'s `@test mean(2, 3)
+2.5`, and `R`'s `expect_equal(mean(2, 3), 2.5)` are all easy to understand, even
+if the details of how `mean` is implemented are not. Reading tests is also
+orders of magnitude faster than reading the code itself, and if the code is
+sufficiently covered, this should be enough to evaluate the robustness of the
+software.
 
-## Use automated testing, and report the results
+## Inform users of your test coverage
 
-One of the most interesting uses of CI engines is to use them conjointly with a
-robust *test suite*. A test suite is a series of situations that test how the
-code responds to known inputs. For example, if one were to write a function to
-measure the mean of a series of number, a good test suite would ensure that the
-mean of $3.0$ and $4.0$ is $3.5$. An excellent test suite would ensure that the
-mean of $3.0$ and the character `"a"` is not defined, and sends a message to the
-user explaining what went wrong. Designing good test suites is somewhat of an
-art form, but @hunt99 have a good description of how it can be done.
-
-Most CI engines offer the possibility to run the tests, and subsequently report
-how much of the code has been tested. For example, `coveralls.io` has a good
-interface to see which files, functions, lines are not covered, and whether the
-coverage changed over time. @yong03 gives good evidence that code coverage
-analysis improves software quality.
+Test engines, when running, collect informations about which lines were tested,
+how often, and which lines were not. This is important information, since it
+(roughly speaking) informs users of what proportion of the features they are
+about to use are known to perform as they should. @yong03 gives good evidence
+that code coverage analysis, over time, improves software quality.
 
 From a publishing and reviewing point of view, coverage analysis is an
 incredibly powerful tool. While reviewing the entirety of a source code is
 difficult and not foolproof, it is much easier to look up what fraction of the
 code is covered (services like `coveralls.io` go as far as color-coding the page
 when the code is not properly covered), then to evaluate whether the test suite
-is exhaustive enough. Focusing the reviewing effort on the test suite also has
-the advantage of not requiring the reviewer to be familiar with the language the
-code is written in, since test packages usually use a simple syntax. For
-example, `python`'s `assertEqual(mean(2, 3), 2.5)`, `julia`'s `@test mean(2, 3)
-2.5`, and `R`'s `expect_equal(mean(2, 3), 2.5)` are all easy to understand, even
-if the details of how `mean` is implemented are not.
+is exhaustive enough. Based on this information, reviewers can easily make
+recommendations about where code revision is needed.
+
+## Let the cloud work for you
+
+While software developers will run test suite and coverage analyses on their
+machines, it is important to (i) report the results to the users and (ii) ensure
+that the software works on "clean" machines. This can be done, in a single step,
+using cloud-based services known as Continuous Integration (CI) engines. Continuous integration [@duva07] is the practice of committing every change to a
+source code to a service that will test whether or not the software still works.
+
+This is usually done by coupling a continuous integration (CI) engine (such as,
+*e.g.*, `travis-ci.org`) to a version control system such as `git` or SVN
+[@ram13]. When a new change is "pushed", the CI engine will run (roughly
+speaking) two steps. First, it will setup a new environment with the minimum
+amount of software and libraries needed to run the code. Then, it will run a
+user-specified series of steps (usually the test suite and coverage analysis),
+and if none on them fail, will report that the build (the latest version of the
+code) is "passing". If not, the build will be "failing".
+
+Using CI engines serves two purposes. First, it prooves that the software runs
+on other machines and configurations (most CI engines allow to run, *e.g.*,
+different versions of `R`), and (most importantly) that the dependencies are
+known and can be installed without effort. Second, it serves as a *hub* for
+other services. Most cloud-based solutions are well integrated to one another:
+sending a new version of the code to *GitHub* will trigger a build on
+*TravisCI*, which will perform the coverage analysis for *Coveralls* to report,
+and both will then send the results back to *GitHub* for the users to see. Not
+only does it publicly discloses two obvious measures of code quality, it does so
+in a way that is effortless for the developer.
 
 ## Release code in a citeable way
 
 As mentioned in the introduction, while software papers include links to the
 code, the code itself is not tracked, and is difficultly citeable. This should
-not be the case. The `zenodo.org` service recently partnered with *GitHub*, to
+not be the case. *Zenodo* (`zenodo.org`) recently partnered with *GitHub*, to
 offer researchers the opportunity to get DOI (Digital Object Identifiers) for
 their code. Every time a new *release* of the code is created, it receives a new
 DOI, and can be cited as any other scientific document. This is a necessary step
@@ -119,7 +143,7 @@ if we want to fully understand the impact of code on the scientific literature.
 More importantly, this is a major leap forward for reproducibility. If a
 specific version of the code is used, and can be cited, it becomes possible to
 reproduce the analysis in the exact same conditions --- this is particularly
-true since *Zenodo* (hosted on the CERN Data Centre) offers independent and
+true since *Zenodo* (hosted by the CERN Data Centre) offers independent and
 redundant copies of every published version.
 
 ## Write documentation, publish use-cases
@@ -163,11 +187,13 @@ parallel, adding unique identifiers on code, and focusing in describing what it
 does rather than how it does it, will make it easier to find, easier to cite,
 and easier to adopt.
 
-Acknowledgments --- this paper was prepared when putting together notes for a
-workshop on code discoverability, for the Canadian Society of Ecology and
+**Acknowledgments** --- this paper was prepared when putting together notes for
+a workshop on code discoverability, for the Canadian Society of Ecology and
 Evolution annual meeting 2015, in Saskatoon, and largely inspired by group
 discussions in the Stouffer lab, University of Canterbury. TP is funded by a
-starting grant from the Université de Montréal.
+starting grant from the Université de Montréal, and a Discovery grant from
+NSERC. Thanks are due to Ethan White and Jeffrey Hollister for comments on the
+initial submission of this manuscript.
 
 \cleardoublepage
 
@@ -178,10 +204,13 @@ and many also provide educational discount for which scientists are eligible.
 | Service       | URL               | Purpose                                    |
 |:--------------|:------------------|:-------------------------------------------|
 | *GitHub*      | `github.com`      | Version control                            |
+| *GitLab*      | `gitlab.com`      | Version control                            |
+| *BitBucket*   | `bitbucket.org`   | Version control                            |
 | *TravisCI*    | `travis-ci.org`   | Continuous integration (Linux)             |
 | *Appveyor*    | `appveyor.com`    | Continuous integration (Windows)           |
 | *Jenkins*     | `jenkins-ci.org`  | Continuous integration (multi OS)          |
 | *Coveralls*   | `coveralls.io`    | Code coverage analysis                     |
+| *Codecov*     | `codecov.io`      | Code coverage analysis                     |
 | *Zenodo*      | `zenodo.org`      | DOI provider (*GitHub* integration)        |
 | *Shields*     | `shields.io`      | Badges to inform on code status            |
 | *ImpactStory* | `impactstory.org` | Information on code impact                 |
