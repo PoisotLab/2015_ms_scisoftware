@@ -18,41 +18,49 @@ addition, by providing a peer-reviewed, journal approved venue, this change in
 editorial practices gives credit to scientists for whom software development
 is a frequent research output.
 
-Nevertheless, these papers are at best only pointers to the code, which is not
-tracked in a bibliometrically measurable way. Some initiatives, such as
-`impactstory.org`'s metrics for code re-use, are a good start, but for code to
-be valued as a first-class research output, wider adoption of existing
-technologies are needed.
+Nevertheless, these papers are at best only pointers to the code, which is
+itself not tracked in a way that benefits software developers. While the long
+history of scientific publishing resulted in established (although debatable)
+measures for the impact of a scientist on the basis of its contribution to
+the literature, these is no similar effort or standard to do the same with
+software [@howi15] -- as a result, while there exists an incentive to write
+good papers, there is no clear incentive to *write good software*. Some
+initiatives, such as `impactstory.org`'s metrics for code re-use, are a
+good start, but for code to be valued as a first-class research output,
+wider adoption of existing technologies are needed.
 
 Most concerning is the fact that, despite the recognized need for quality
 control [@baxt06], we do not currently have a set of community-wide best
-practices for how code should be released. While it is clear that code is
-perceived as a research output just like data and papers, understanding *how* it
-should be released, vetted, and tracked is still the great unknown. In a survey,
-@jopp13 reported "troubling trends" in the use of software: only 30% of
-ecologists using species distribution modeling software justified they use by
-comparison with other tools, or previously published methods. My impression as a
-reviewer, and reader of the literature, is that software use tends to follow a
-trends, whereby if a package is picked up by a few authors, it will rapidly gain
-traction regardless of its actual *quality*.
+practices for how code should be released. While it is clear that code is on
+the verge of being perceived, valued, and tracked as a research output just
+like data and papers, understanding *how* it should be released and vetted,
+is still the great unknown. In a survey, @jopp13 reported "troubling trends"
+in the use of software: only 30% of ecologists using species distribution
+modeling software justified they use by comparison with other tools,
+or previously published methods. My impression as a reviewer, and reader
+of the literature, is that software use tends to follow a trends, whereby
+if a package is picked up by a few authors, it will rapidly gain traction
+regardless of its actual *quality*.
 
-One of the recommendations by @jopp13 is that code should be reviewed. Yet as
-almost anyone that wrote or attempted to review scientific software will attest,
-this implies a tremendous effort. First, not all software are written in the
-same language. This simple fact make looking for reviewers with the expertise to
-handle a paper incredibly difficult. In an already over-burdened peer-review
-system, restricting the search for referees to only people with the technical
-know-how to perform code review is sure to make the delays increase. Second,
-there are evidences that, even for the most trivial pieces of software,
-experienced code-reviewers are not able to follow all possible paths of program
-flow [@uwan06]; and it can easily be argued that very few ecologists are
-*experienced* code reviewers --- nor should they be.
+One of the recommendations by @jopp13 is that code should be reviewed. Yet
+as almost anyone that wrote or attempted to review scientific software will
+attest, this implies a tremendous effort. First, not all software is written
+in the same language. This simple fact make looking for reviewers with the
+expertise to handle a paper incredibly difficult. In an already over-burdened
+peer-review system, restricting the search for referees to only people with
+the technical know-how to perform code review is sure to make the delays
+increase. Second, there are evidences that, even for the most trivial pieces
+of software, experienced code-reviewers are not able to follow all possible
+paths of program flow [@uwan06]; and it can easily be argued that very few
+ecologists are *experienced* code reviewers --- nor should they be. 
 
-In order to make scientific software better, which is to say, to increase the
-confidence of users, and make the act of producing it recognized in the same way
-that writing papers is, these two challenges must be addressed. The good thing
-is that solution are *already* in place, and all that is needed is to increase
-their adoption by a broader share of the community.
+In order to make scientific software better, which is to say, to both
+increase the confidence of users and minimize the chances of introducing
+hard to detect bugs --- which is a pre-requisite for making sure that writing
+code is valued in the same way that writing papers is, these two challenges
+must be addressed. The good thing is that solution are *already* in place,
+and all that is needed is to increase their adoption by a broader share of
+the community.
 
 # Proposed best practices
 
@@ -196,7 +204,32 @@ parallel, adding unique identifiers on code, and focusing in describing what
 it does rather than how it does it, will make it easier to find, easier to
 cite, and easier to adopt [@howi15].
 
-**Acknowledgments** --- this paper was prepared when putting together notes
+With any standard comes the question of how, and by whom, it should be
+enforced. Ideally, any researcher writing code will recognize the benefits
+of these practices, and use them. In any case, there are two categories
+of people who can have a direct impact of their adoption. The first is,
+as often, reviewers and editors. Should informations about testing, code
+coverage, licenses, be presented in an easy to access way, it would be easy
+for reviewers to treat this information as another measure of the quality or
+suitability of a paper, or to recommend adjustments. Editors can implement
+journal-level policies, which spell out the requirements for a manuscript
+to be accepted. Finally, readers and software users can "vote with their
+feet"; if a piece of software does not gives enough information to trust
+it, the rational decision would be *not* to use it, and to reach out to the
+maintainers and request that the best practices are followed.
+
+None of the above practices are an unreasonable time-sink, and they have the
+ability to make scientific software better and more reliable. Just as we want
+to have a high degree of confidence in the equipment we use in research, so
+too should we have high standards for the code we use to produce and analyze
+results. There are outstanding grass-root initiatives (Mozilla's **XXX**,
+*Software Carpentry*, `http://www.software-carpentry.org/`) that are aimed
+at improving the computational literacy, and awareness of best practices,
+among researchers. Writing code is not a niche occupation for ecologists
+anymore, and existing training opportunities should be used to reflect this
+change in practices.
+
+**Ancknowledgments** --- this paper was prepared when putting together notes
 for a workshop on code discoverability, for the Canadian Society of Ecology
 and Evolution annual meeting 2015, in Saskatoon, and largely inspired by group
 discussions in the Stouffer lab, University of Canterbury. TP is funded by a
@@ -223,7 +256,7 @@ and many also provide educational discount for which scientists are eligible.
 | *Zenodo*      | `zenodo.org`      | DOI provider (*GitHub* integration)        |
 | *Shields*     | `shields.io`      | Badges to inform on code status            |
 | *ImpactStory* | `impactstory.org` | Information on code impact                 |
-| *ReadTheDocs* | `readthedocs.org` | Easy generation of documentation web pages |
+| *ReadTheDocs* | `readthedocs.org` | Easy generation of documentation           |
 
 \cleardoublepage
 
