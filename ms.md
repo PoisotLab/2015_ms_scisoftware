@@ -64,7 +64,7 @@ of free and open-source license @morin12 (so that the raw source code can be
 used and improved upon by all users), and the use of publicly available
 repositories (so that the history of changes can easily be consulted).
 
-## Use automated testing
+## Test your software
 
 A test suite is a series of situations that test how the code responds to known
 inputs. For example, if one were to write a function to measure the mean of a
@@ -86,7 +86,7 @@ orders of magnitude faster than reading the code itself, and if the code is
 sufficiently covered, this should be enough to evaluate the robustness of the
 software.
 
-## Inform users of your test coverage
+## Inform users of the test coverage
 
 Test engines, when running, collect informations about which lines were tested,
 how often, and which lines were not. This is important information, since it
@@ -191,17 +191,17 @@ practice will only increase, and this is a good thing. It is only important to
 remember that software is written by people, and people make mistake. Taking
 simple precautions to make sure that the software works will undoubtedly
 accelerate the review process, and increase the overall quality of code. In
-parallel, adding unique identifiers on code, and focusing in describing what it
-does rather than how it does it, will make it easier to find, easier to cite,
-and easier to adopt.
+parallel, adding unique identifiers on code, and focusing in describing what
+it does rather than how it does it, will make it easier to find, easier to
+cite, and easier to adopt [@howi15].
 
-**Acknowledgments** --- this paper was prepared when putting together notes for
-a workshop on code discoverability, for the Canadian Society of Ecology and
-Evolution annual meeting 2015, in Saskatoon, and largely inspired by group
+**Acknowledgments** --- this paper was prepared when putting together notes
+for a workshop on code discoverability, for the Canadian Society of Ecology
+and Evolution annual meeting 2015, in Saskatoon, and largely inspired by group
 discussions in the Stouffer lab, University of Canterbury. TP is funded by a
 starting grant from the Université de Montréal, and a Discovery grant from
 NSERC. Thanks are due to Ethan White and Jeffrey Hollister for comments on the
-initial submission of this manuscript.
+initial submission of this manuscript, as well as Robert Davey for suggestions.
 
 \cleardoublepage
 
