@@ -6,16 +6,17 @@ date: Mar. 2015
 
 # Introduction
 
-The practice of science is becoming increasingly reliant on software --- despite
-the lack of formal training [@wils14], upwards of 30% of scientists need to
-*develop* their own. In ecology and evolution, this resulted in several journals
-(notably *Methods in Ecology & Evolution*, *Ecography*, *BMC Ecology*) creating
-specific sections for papers describing software package. This can only be
-viewed as a good thing, since the call to publish software in an open way has
-been made several times [@barn10], and is broadly viewed as a way towards
-greater reproducibility [@ince12]. In addition, by providing a peer-reviewed,
-journal approved venue, this change in editorial practices gives credit to
-scientists for whom software development is a frequent research output.
+The practice of science is becoming increasingly reliant on software ---
+despite the lack of formal training [@wils14; @hast14], upwards of 30%
+of scientists need to *develop* their own. In ecology and evolution, this
+resulted in several journals (notably *Methods in Ecology & Evolution*,
+*Ecography*, *BMC Ecology*) creating specific sections for papers describing
+software package. This can only be viewed as a good thing, since the call
+to publish software in an open way has been made several times [@barn10],
+and is broadly viewed as a way towards greater reproducibility [@ince12]. In
+addition, by providing a peer-reviewed, journal approved venue, this change in
+editorial practices gives credit to scientists for whom software development
+is a frequent research output.
 
 Nevertheless, these papers are at best only pointers to the code, which is not
 tracked in a bibliometrically measurable way. Some initiatives, such as
