@@ -235,6 +235,24 @@ researchers. Writing code is not a niche occupation for ecologists anymore,
 and existing training opportunities should be used to reflect this change
 in practices.
 
+# Response to White (2015)
+
+I agree with the points made by White in his review of this paper. Citation is
+bound to be an issue since software changes over time -- and highly successful
+software is expected to change more, both because increased use will discover
+more issues, and because it will have to introduce new features to keep
+up with user demand. Citing each version separately may have the effect of
+diluting the impact of the software (although most citation trackers are able
+to aggregate citations received by different versions of an object, the way
+*Google Scholar* does for the preprint and published version of a paper). No
+single individual or group of people are going to solve this issue; of all the
+points I raise in this paper, this is most likely the one that will require
+a concerted effort to reach a consensus. Ultimately, the citations practices
+will be determined by what the journals allow. Software developers should
+advocate to editors and publishers to make sure that the journals guidelines
+are explicit about the way to cite software -- and should do so by expressing
+their needs, and the best way they think their work can be credited.
+
 **Acknowledgments** --- this paper was prepared when putting together notes
 for a workshop on code discoverability, for the Canadian Society of Ecology
 and Evolution annual meeting 2015, in Saskatoon, and largely inspired by group
